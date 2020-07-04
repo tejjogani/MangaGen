@@ -7,6 +7,7 @@ The dataset consists of over 60,000 images which are used to train this DC-GAN.
 
 # Training Result
 
+Do keep in mind that this is trained on an image set which is 64 x 64, so the actual images have to be viewed at a much smaller size. This means that the GAN is actually performing better given the constraints. For now, a larger scaled version is shown which causes pixelation to be a lot more apparent.
 
 ![Image of Showcase of Results](https://github.com/tejjogani/MangaGeneration-GAN/raw/master/results/showcase.gif)
 
