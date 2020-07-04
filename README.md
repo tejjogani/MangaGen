@@ -1,6 +1,8 @@
 # MangaGen
 A DC-GAN trained on anime image on Kaggle.
+
 Dataset: https://www.kaggle.com/splcher/animefacedataset
+
 The dataset consists of over 60,000 images which are used to train this DC-GAN.
 
 # Training Result
