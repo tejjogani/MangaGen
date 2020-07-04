@@ -11,5 +11,4 @@ The network architecture used is inspired by a paper on DC-GANs named UNSUPERVIS
 
 The following image represents the network architecture:
 
-![Image of Network]
-(resources/network.png)
+![Image of Network](https://github.com/tejjogani/MangaGen/raw/master/resources/network.png)
