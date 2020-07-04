@@ -3,10 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-def initialize_normal(m, mean, std):
-    if isinstance(m, nn.ConvTranspose2d) or isinstance(m, nn.Conv2d):
-        m.weight.data.normal_(mean, std)
-        m.bias.data.zero_()
+
 
 #Generator Network i.e. G(z)
 class Generator(nn.Module):
@@ -20,13 +17,15 @@ class Generator(nn.Module):
         self.deconv2_bn = nn.BatchNorm2d(dim*4)
         self.deconv3 = nn.ConvTranspose2d(dim*4, dim*2, 4, 2, 1)
         self.deconv3_bn = nn.BatchNorm2d(dim*2)
-        self.deconv4 = nn.ConvTranspose2d(dim*2, d, 4, 2, 1)
+        self.deconv4 = nn.ConvTranspose2d(dim*2, dim, 4, 2, 1)
         self.deconv4_bn = nn.BatchNorm2d(dim)
         self.deconv5 = nn.ConvTranspose2d(dim, 3, 4, 2, 1)
     
     def weight_init(self, mean, std):
         for m in self._modules:
-            initialize_normal(self._modules[m], mean, std)
+            if isinstance(self._modules[m], nn.ConvTranspose2d) or isinstance(self._modules[m], nn.Conv2d):
+                m.weight.data.normal_(mean, std)
+                m.bias.data.zero_()
 
     def forward(self, inp):
         x = F.relu(self.deconv1_bn(self.deconv1(inp)))
@@ -39,7 +38,8 @@ class Generator(nn.Module):
 #Building the Discriminator Network D(z)
 class Discriminator(nn.Module):
 
-    def __init__(self, dim=128):
+
+    def __init__(self, d=128):
         super(Discriminator, self).__init__()
 
         self.conv1 = nn.Conv2d(3, d, 4, 2, 1)
@@ -53,7 +53,9 @@ class Discriminator(nn.Module):
 
     def weight_init(self, mean, std):
         for m in self._modules:
-            initialize_normal(self._modules[m], mean, std)
+            if isinstance(self._modules[m], nn.ConvTranspose2d) or isinstance(self._modules[m], nn.Conv2d):
+                m.weight.data.normal_(mean, std)
+                m.bias.data.zero_()
 
     def forward(self, inp):
         x = F.leaky_relu(self.conv1(inp), 0.2)
@@ -61,6 +63,7 @@ class Discriminator(nn.Module):
         x = F.leaky_relu(self.conv3_bn(self.conv3(x)), 0.2)
         x = F.leaky_relu(self.conv4_bn(self.conv4(x)), 0.2)
         x = F.sigmoid(self.conv5(x))
+        return x
     
     
 

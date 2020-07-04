@@ -17,7 +17,7 @@ class AnimeDataset(Dataset):
         self.data_len = len(self.image_list)
         #transforms
         self.convert_image = transforms.Compose([
-            transforms.Resize(64),
+            transforms.Resize((64, 64)),
             transforms.ToTensor(), 
             transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
         ])
@@ -28,6 +28,7 @@ class AnimeDataset(Dataset):
         single_image_path = self.image_list[index]
         # Open image
         im_as_im = Image.open(single_image_path)
+        im_as_im.show()
         # Do some operations on image
         # Convert to numpy, dim = 89x89
         im_as_ten = self.convert_image(im_as_im)
@@ -38,4 +39,4 @@ class AnimeDataset(Dataset):
 
 if __name__ == '__main__':
 	dataset = AnimeDataset('images/')
-	dataset.__getitem__(2)
+	dataset.__getitem__(18739)
