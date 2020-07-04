@@ -8,6 +8,10 @@ The dataset consists of over 60,000 images which are used to train this DC-GAN.
 # Training Result
 
 
+![Image of Showcase of Results](https://github.com/tejjogani/MangaGeneration-GAN/raw/master/results/showcase.gif)
+
+
+
 # Further Details
 The network architecture used is inspired by a paper on DC-GANs named UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS Reference: https://arxiv.org/pdf/1511.06434.pdf
 
