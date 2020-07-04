@@ -3,6 +3,7 @@ from PIL import Image
 import glob
 import torch
 from torch.utils.data.dataset import Dataset
+import torchvision.transforms as transforms
 
 class AnimeDataset(Dataset):
     def __init__(self, folder_path):
@@ -14,6 +15,12 @@ class AnimeDataset(Dataset):
         self.image_list = glob.glob(folder_path+'*')
         # Calculate len
         self.data_len = len(self.image_list)
+        #transforms
+        self.convert_image = transforms.Compose([
+            transforms.Resize(64),
+            transforms.ToTensor()
+        ])
+
 
     def __getitem__(self, index):
         # Get image name from the pandas df
@@ -22,8 +29,7 @@ class AnimeDataset(Dataset):
         im_as_im = Image.open(single_image_path)
         # Do some operations on image
         # Convert to numpy, dim = 89x89
-        im_as_np = np.asarray(im_as_im)/255
-        im_as_ten = torch.from_numpy(im_as_np).float()
+        im_as_ten = self.convert_image(im_as_im)
         return im_as_ten
 
     def __len__(self):
